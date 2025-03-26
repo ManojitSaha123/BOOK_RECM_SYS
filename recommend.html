@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Book Recommendations</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css">
+</head>
+<style>
+    .text-white {
+        color: white;
+    }
+</style>
+<body style="background-color: black">
+    <nav class="navbar navbar-default" style="background-color: #6600a6">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand text-white">My Book Recommender</a>
+            </div>
+            <ul class="nav navbar-nav">
+                <li><a href="/" class="nav-link text-white">Home</a></li>
+                <li><a href="/recommend" class="nav-link text-white">Recommend</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h1 class="text-white" style="font-size: 50px">Book Recommendations</h1>
+                <form action="/recommend_books" method="POST">
+                    <input name="user_input" type="text" class="form-control" placeholder="Enter a book title" required>
+                    <br>
+                    <input type="submit" class="btn btn-lg btn-warning" value="Get Recommendations">
+                </form>
+            </div>
+
+            {% if message %}
+                <div class="col-md-12" style="margin-top: 20px">
+                    <p class="text-white">{{ message }}</p>
+                </div>
+            {% endif %}
+
+            {% if data %}
+                <div class="row">
+                    {% for item in data %}
+                        <div class="col-md-3" style="margin-top: 20px">
+                            <div class="card">
+                                <img class="card-img-top" src="{{ item[2] }}" alt="{{ item[0] }}">
+                                <div class="card-body">
+                                    <p class="text-white">{{ item[0] }}</p>
+                                    <h4 class="text-white">{{ item[1] }}</h4>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</body>
+</html>
